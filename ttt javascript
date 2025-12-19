@@ -1,0 +1,102 @@
+let currentPlayer = 'X';
+let gameBoard = ['', '', '', '', '', '', '', '', ''];
+let gameActive = true;
+let scores = { xWins: 0, oWins: 0, draws: 0 };
+
+const winningConditions = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+    [0, 4, 8], [2, 4, 6] // Diagonals
+];
+
+document.querySelectorAll('.cell').forEach(cell => {
+    cell.addEventListener('click', handleCellClick);
+});
+
+function handleCellClick(event) {
+    const cell = event.target;
+    const index = cell.getAttribute('data-index');
+
+    if (gameBoard[index] !== '' || !gameActive) return;
+
+    gameBoard[index] = currentPlayer;
+    cell.textContent = currentPlayer;
+    cell.classList.add('taken');
+
+    if (checkWin()) {
+        gameActive = false;
+        highlightWinningCells();
+        updateScore(currentPlayer);
+        showMessage(`Player ${currentPlayer} wins!`);
+    } else if (checkDraw()) {
+        gameActive = false;
+        scores.draws++;
+        updateScoreDisplay();
+        showMessage("It's a draw!");
+    } else {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        updatePlayerDisplay();
+    }
+}
+
+function checkWin() {
+    return winningConditions.some(condition => {
+        const [a, b, c] = condition;
+        return gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c];
+    });
+}
+
+function checkDraw() {
+    return gameBoard.every(cell => cell !== '');
+}
+
+function highlightWinningCells() {
+    winningConditions.forEach(condition => {
+        const [a, b, c] = condition;
+        if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+            condition.forEach(index => {
+                document.querySelector(`.cell[data-index="${index}"]`).classList.add('winner');
+            });
+        }
+    });
+}
+
+function updateScore(winner) {
+    if (winner === 'X') {
+        scores.xWins++;
+    } else {
+        scores.oWins++;
+    }
+    updateScoreDisplay();
+}
+
+function updateScoreDisplay() {
+    document.getElementById('x-wins').textContent = scores.xWins;
+    document.getElementById('o-wins').textContent = scores.oWins;
+    document.getElementById('draws').textContent = scores.draws;
+}
+
+function updatePlayerDisplay() {
+    document.getElementById('current-player').textContent = currentPlayer;
+}
+
+function showMessage(message) {
+    alert(message);
+}
+
+function resetGame() {
+    gameBoard = ['', '', '', '', '', '', '', '', ''];
+    gameActive = true;
+    currentPlayer = 'X';
+    
+    document.querySelectorAll('.cell').forEach(cell => {
+        cell.textContent = '';
+        cell.classList.remove('taken', 'winner');
+    });
+    
+    updatePlayerDisplay();
+}
+
+// Initialize display
+updatePlayerDisplay();
+updateScoreDisplay();
