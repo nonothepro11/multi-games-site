@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe - GameHub</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-times"></i> Tic Tac Toe</h1>
+            <a href="../../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Games
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="game-info">
+            <p>Player <span id="current-player">X</span>'s Turn</p>
+            <div class="score">
+                <div>X Wins: <span id="x-wins">0</span></div>
+                <div>O Wins: <span id="o-wins">0</span></div>
+                <div>Draws: <span id="draws">0</span></div>
+            </div>
+            <button onclick="resetGame()" class="reset-btn">
+                <i class="fas fa-redo"></i> Reset Game
+            </button>
+        </div>
+
+        <div class="game-container">
+            <div class="board" id="board">
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle"></i> How to Play</h3>
+            <p>Players take turns placing X and O marks in a 3x3 grid. The first player to get 3 of their marks in a row (horizontally, vertically, or diagonally) wins!</p>
+        </div>
+    </main>
+
+    <script src="game.js"></script>
+</body>
+</html>
