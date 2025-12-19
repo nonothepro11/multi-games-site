@@ -1,0 +1,22 @@
+multi-games-site/
+├── index.html
+├── style.css
+├── script.js
+├── games/
+│   ├── tic-tac-toe/
+│   │   ├── index.html
+│   │   ├── game.js
+│   │   └── style.css
+│   ├── snake/
+│   │   ├── index.html
+│   │   ├── game.js
+│   │   └── style.css
+│   ├── memory-game/
+│   │   ├── index.html
+│   │   ├── game.js
+│   │   └── style.css
+│   └── pong/
+│       ├── index.html
+│       ├── game.js
+│       └── style.css
+└── README.md
